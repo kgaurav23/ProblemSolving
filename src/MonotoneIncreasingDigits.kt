@@ -28,7 +28,7 @@ fun main() {
 
 object MonotoneIncreasingDigits {
     fun monotoneIncreasingDigits(N: Int): Int {
-        
+
         return -1
     }
 }

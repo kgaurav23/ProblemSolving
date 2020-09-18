@@ -1,2 +1,10 @@
 # Project exclude paths
 /out/
+/.idea/$CACHE_FILE$
+/.idea/codeStyles/codeStyleConfig.xml
+/.idea/kotlinc.xml
+/.idea/libraries/KotlinJavaRuntime.xml
+/.idea/misc.xml
+/.idea/modules.xml
+/ProblemSolving.iml
+/.idea/codeStyles/Project.xml
