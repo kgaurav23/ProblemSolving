@@ -21,29 +21,45 @@ Note: N is an integer in the range [0, 10^9]
 
  **/
 fun main() {
-    val input = listOf(10, 1234, 332)
+    val input = listOf(10, 1234, 332, 1289, 3287, 1321, 75456)
     val answer = mutableListOf<Int>()
-    for(number in input) {
+    val answerV2 = mutableListOf<Int>()
+    for (number in input) {
         answer.add(MonotoneIncreasingDigits.monotoneIncreasingDigits(number))
+        answerV2.add(MonotoneIncreasingDigits.monotoneIncreasingDigitsV2(number))
     }
-    print(answer)
+
+    print("Answer: $answer")
+    print("AnswerV2: $answerV2")
 }
 
 object MonotoneIncreasingDigits {
-    fun monotoneIncreasingDigits(N: Int): Int {
-        var currentMax = Int.MIN_VALUE
-        for (i in 1..N) {
-            if (doesNumberContainMonotoneIncreasingDigits(i) && i > currentMax) {
-                currentMax = i
+
+    fun monotoneIncreasingDigitsV2(N: Int): Int {
+        val inputArray = N.toString().toCharArray()
+        val inputStrLength = inputArray.size
+        var currentIndexFromEnd = inputStrLength - 1
+
+        while (currentIndexFromEnd > 0) {
+            if (inputArray[currentIndexFromEnd] < inputArray[currentIndexFromEnd - 1]) {
+                changeAllDigitsTo9(inputArray, currentIndexFromEnd)
             }
+            currentIndexFromEnd--
         }
 
-        return currentMax
+        return inputArray.joinToString("").toInt()
     }
 
-    private fun doesNumberContainMonotoneIncreasingDigits(N: Int): Boolean {
+    private fun changeAllDigitsTo9(inputStr: CharArray, currentIndexFromEnd: Int) {
+        val length = inputStr.size
+        for (i in currentIndexFromEnd until length) {
+            inputStr[i] = '9'
+        }
+        inputStr[currentIndexFromEnd - 1] = inputStr[currentIndexFromEnd - 1] - 1
+    }
+
+    private fun doesNumberContainMonotoneIncreasingDigits(numberStr: String): Boolean {
         var result = true
-        val numberStr = N.toString()
         val length = numberStr.length
         for (i in 0 until length - 1) {
             if (numberStr[i] <= numberStr[i + 1]) {
@@ -55,5 +71,17 @@ object MonotoneIncreasingDigits {
         }
 
         return result
+    }
+
+    fun monotoneIncreasingDigits(N: Int): Int {
+        var currentMax = Int.MIN_VALUE
+
+        for (i in 1..N) {
+            if (i > currentMax && doesNumberContainMonotoneIncreasingDigits(i.toString())) {
+                currentMax = i
+            }
+        }
+
+        return currentMax
     }
 }
