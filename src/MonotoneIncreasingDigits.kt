@@ -25,15 +25,13 @@ fun main() {
     val answer = mutableListOf<Int>()
     val answerV2 = mutableListOf<Int>()
     for (number in input) {
-        answer.add(MonotoneIncreasingDigits.monotoneIncreasingDigits(number))
-        answerV2.add(MonotoneIncreasingDigits.monotoneIncreasingDigitsV2(number))
+        answer.add(monotoneIncreasingDigits(number))
+        answerV2.add(monotoneIncreasingDigitsV2(number))
     }
 
     print("Answer: $answer")
     print("AnswerV2: $answerV2")
 }
-
-object MonotoneIncreasingDigits {
 
     fun monotoneIncreasingDigitsV2(N: Int): Int {
         val inputArray = N.toString().toCharArray()
@@ -84,4 +82,3 @@ object MonotoneIncreasingDigits {
 
         return currentMax
     }
-}
