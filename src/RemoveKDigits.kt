@@ -27,8 +27,48 @@ Explanation: Remove all the digits from the number and it is left with nothing w
  **/
 fun main() {
 
+    val input = listOf("1432219", "10200", "10", "346", "436")
+    val k = listOf(3, 1, 2, 1, 1)
+
+    for (i in input.indices) {
+        println("Answer: ${removeKdigits(input[i], k[i])}")
+    }
 }
 
 fun removeKdigits(num: String, k: Int): String {
-    return ""
+    val lengthOfNum = num.length
+    var inputNumber = num
+    var startIndex = 0
+
+    if (k == lengthOfNum) {
+        return "0"
+    }
+
+    if (doWeHaveLeadingZeroesAfterKRemoval(num, k)) {
+        startIndex = k
+        while (num[startIndex] == '0') {
+            startIndex++
+        }
+        return num.substring(startIndex)
+    }
+
+    val largestKDigits = findLargestKDigitsInNum(num, k)
+    for (i in largestKDigits.indices) {
+        val indexOfFirstOccurrence = inputNumber.indexOfFirst {
+            it.toInt() == largestKDigits[i]
+        }
+        inputNumber = inputNumber.replaceFirst(inputNumber[indexOfFirstOccurrence].toString(), "")
+    }
+
+    return inputNumber
 }
+
+fun findLargestKDigitsInNum(num: String, k: Int): List<Int> {
+    val largestKDigits = mutableListOf<Int>()
+    var arr = num.toCharArray()
+
+
+    return largestKDigits
+}
+
+fun doWeHaveLeadingZeroesAfterKRemoval(num: String, k: Int): Boolean = k < num.length && num[k] == '0'
